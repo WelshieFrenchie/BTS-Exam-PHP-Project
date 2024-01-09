@@ -1,2 +1,2 @@
 # BTS-Projects
-My public projects used for my 2 developper license (BTEC equivalent)
+My public php porject used for the exam of my developper diploma (BTEC equivalent)
