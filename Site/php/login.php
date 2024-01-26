@@ -23,7 +23,7 @@
         header('Location: ../index.php');
     }
     else {
-        $_SESSION['wronglogin']=true;
+        $_SESSION['error']=true;
         header('Location: ./loginwrong.php');
     }
 ?>

@@ -4,6 +4,24 @@
     <body>
         <?php
             require("./navbar.php");
+            
+            if (isset($_SESSION['error']) == 'difpwd') {
+                echo '<div class="modal bg-danger" tabindex="-1" role="dialog">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Vos mots de passes ne sont pas identiques. Veuillez ré-essayer</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>';
+            }
         ?>
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -17,9 +35,9 @@
                     
                     <div class="container">
                         <div class="carousel-caption text-start">
-                        <h1>Example headline.</h1>
-                        <p>Some representative placeholder content for the first slide of the carousel.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                        <h1>Cours sportives pour tout les niveaux</h1>
+                        <p>Consultez notre liste de cours disponibles dans nos salles de sports</p>
+                        <p><a class="btn btn-lg btn-primary" href="./fitness.php">Savoir plus</a></p>
                         </div>
                     </div>
                 </div>
@@ -27,9 +45,9 @@
                 	<img src="../img/muscu.jpg" class="d-block w-100" alt="...">
                 		<div class="container">
                         <div class="carousel-caption">
-                            <h1>Another example headline.</h1>
-                            <p>Some representative placeholder content for the second slide of the carousel.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                            <h1>Materiel sportif a libre service</h1>
+                            <p>Salles et materiel pour débutants et professionels</p>
+                            <p><a class="btn btn-lg btn-primary" href="./muscu.php">Voir les photos</a></p>
                         </div>
                     </div>
                 </div>
@@ -37,9 +55,9 @@
                    <img src="../img/aquaAerobics.jpg" class="d-block w-100" alt="...">
                     <div class="container">
                         <div class="carousel-caption text-end">
-                            <h1>One more for good measure.</h1>
-                            <p>Some representative placeholder content for the third slide of this carousel.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                            <h1>Piscine pour cours et loisirs</h1>
+                            <p>Piscine chauffé pour profiter des cours aquatiques en tout tranquilité</p>
+                            <p><a class="btn btn-lg btn-primary" href="./aqua.php">Consulter</a></p>
                         </div>
                     </div>
                 </div>
@@ -62,14 +80,14 @@
                     <h2>Heading</h2>
                     <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
                     <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-                </div><!-- /.col-lg-4 -->
+                </div>
                 <div class="col-lg-4">
                     <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
                     
                     <h2>Heading</h2>
                     <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
                     <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-                </div><!-- /.col-lg-4 -->
+                </div>
                     <div class="col-lg-4">
                     <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
                     

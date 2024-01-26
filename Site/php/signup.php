@@ -2,7 +2,7 @@
     session_start();
     
     try {
-        $bdd = new PDO('mysql:host=localhost;dbname=Projetsite','root','');
+        $bdd = new PDO('mysql:host=localhost;dbname=projetsite','root','');
     }
     catch (Exception $e) {
         die('Erreur : '.$e->getMessage());
@@ -25,6 +25,7 @@
         header('Location: ../index.php');
     }
     else {
-        header('Location: ./signupwrong.php');
+        $_SESSION['error']='difpwd';
+        header('Location: ../index.php');
     }
 ?>
