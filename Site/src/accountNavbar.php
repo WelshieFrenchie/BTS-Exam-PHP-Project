@@ -40,8 +40,8 @@
                   <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
               </ul>
-              <button type="button" class="navbar-padding btn btn-primary" data-bs-toggle="modal" data-bs-target="#connexionModal">Connexion</button>
-              <button type="button" class="navbar-padding btn btn-primary" data-bs-toggle="modal" data-bs-target="#inscriptionModal">Inscription</button>
+              <button type="button" class="navbar-padding btn btn-secondary">Parametres</button>
+              <button type="button" class="navbar-padding btn btn-danger" href=#>Se Deconnecter</button>
             </div>
           </div>
         </nav>
@@ -53,14 +53,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-        		<form id="loginform" action="../php/login.php" method="post">
+        		<form id="loginform" action="./php/login.php">
                   <div class="mb-3">
                     <label for="login" class="form-label">Nom d'utilisateur</label>
-                    <input type="text" class="form-control" id="login" name="login">
+                    <input type="text" class="form-control" id="login">
                   </div>
                   <div class="mb-3">
                     <label for="pwd" class="form-label">Mot de Passe</label>
-                    <input type="password" class="form-control" id="password" name="password>
+                    <input type="password" class="form-control" id="pwd">
                   </div>
                    <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Se Connecter</button>
@@ -79,22 +79,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-        		<form id="signupform" action="../php/signup.php" method="post">
+        		<form id="singupform" action="./php/signup.php">
                   <div class="mb-3">
                     <label for="login" class="form-label">Nom d'utilisateur</label>
-                    <input type="text" class="form-control" id="login" name="login" required>
+                    <input type="text" class="form-control" id="login">
                   </div>
                   <div class="mb-3">
-                    <label for="email" class="form-label">Adresser mail</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <label for="login" class="form-label">Adresser mail</label>
+                    <input type="email" class="form-control" id="login">
                   </div>
                   <div class="mb-3">
-                    <label for="password" class="form-label">Mot de Passe</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <label for="pwd" class="form-label">Mot de Passe</label>
+                    <input type="password" class="form-control" id="pwd">
                   </div>
                   <div class="mb-3">
-                    <label for="password" class="form-label">Confirmer mot de passe</label>
-                    <input type="password" class="form-control" id="confpassword" name="confpassword" required>
+                    <label for="pwd" class="form-label">Confirmer mot de passe</label>
+                    <input type="password" class="form-control" id="confpwd">
                   </div>
                    <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">S'inscrire</button>
