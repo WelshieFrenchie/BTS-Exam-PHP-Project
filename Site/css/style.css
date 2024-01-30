@@ -1,3 +1,10 @@
-.navbar-padding{
-margin-left:10px;
+.navbar-padding {
+    margin-left: 10px;
+}
+
+.page-padding {
+    margin-top: 3em;
+    margin-bottom: 3em;
+    margin-right: 3em;
+    margin-left: 3em;
 }
