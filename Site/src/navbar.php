@@ -3,7 +3,7 @@
     <head>
     	<meta charset='utf-8'>
     	<meta name='viewport' content='width=device-width, initial-scale=1'>
-    	<title>Accueil Uncopyrighted.gym</title>
+    	<title>Accueil Fit4All</title>
     	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     	<link href="./css/style.css" rel="stylesheet">
     </head>
@@ -13,7 +13,7 @@
     ?>
         <nav class="navbar navbar-expand-lg bg-body-secondary">
           <div class="container-fluid">
-            <a class="navbar-brand" href="../index.php">Uncopright.gym</a>
+            <a class="navbar-brand" href="../index.php">Fit4All</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -40,16 +40,8 @@
                   <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
               </ul>
-                <?php
-                    if (!isset($_SESSION['login'])) {
-                    	echo '<button type="button" class="navbar-padding btn btn-primary" data-bs-toggle="modal" data-bs-target="#connexionModal">Connexion</button>';
-                    	echo '<button type="button" class="navbar-padding btn btn-primary" data-bs-toggle="modal" data-bs-target="#inscriptionModal">Inscription</button>';
-                    }
-                    else {
-                        echo '<button type="button" class="navbar-padding btn btn-secondary">Parametres</button>';
-                        echo '<button type="button" class="navbar-padding btn btn-danger" href=#>Se Deconnecter</button>';
-                    }
-                ?>
+              <button type="button" class="navbar-padding btn btn-primary" data-bs-toggle="modal" data-bs-target="#connexionModal">Connexion</button>
+              <button type="button" class="navbar-padding btn btn-primary" data-bs-toggle="modal" data-bs-target="#inscriptionModal">Inscription</button>
             </div>
           </div>
         </nav>
@@ -61,14 +53,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-        		<form id="loginform" action="./php/login.php">
+        		<form id="loginform" action="../php/login.php" method="post">
                   <div class="mb-3">
                     <label for="login" class="form-label">Nom d'utilisateur</label>
-                    <input type="text" class="form-control" id="login">
+                    <input type="text" class="form-control" id="login" name="login">
                   </div>
                   <div class="mb-3">
                     <label for="pwd" class="form-label">Mot de Passe</label>
-                    <input type="password" class="form-control" id="pwd">
+                    <input type="password" class="form-control" id="password" name="password>
                   </div>
                    <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Se Connecter</button>
@@ -87,22 +79,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-        		<form id="singupform" action="./php/signup.php">
+        		<form id="signupform" action="../php/signup.php" method="post">
                   <div class="mb-3">
                     <label for="login" class="form-label">Nom d'utilisateur</label>
-                    <input type="text" class="form-control" id="login">
+                    <input type="text" class="form-control" id="login" name="login" required>
                   </div>
                   <div class="mb-3">
-                    <label for="login" class="form-label">Adresser mail</label>
-                    <input type="email" class="form-control" id="login">
+                    <label for="email" class="form-label">Adresser mail</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
                   </div>
                   <div class="mb-3">
-                    <label for="pwd" class="form-label">Mot de Passe</label>
-                    <input type="password" class="form-control" id="pwd">
+                    <label for="password" class="form-label">Mot de Passe</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
                   </div>
                   <div class="mb-3">
-                    <label for="pwd" class="form-label">Confirmer mot de passe</label>
-                    <input type="password" class="form-control" id="confpwd">
+                    <label for="password" class="form-label">Confirmer mot de passe</label>
+                    <input type="password" class="form-control" id="confpassword" name="confpassword" required>
                   </div>
                    <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">S'inscrire</button>

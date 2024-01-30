@@ -8,22 +8,22 @@
         die('Erreur : '.$e->getMessage());
     }
     
-    $login = $_POST['username'];
-    $pwd = $_POST['password'];
+    $login = $_POST['login'];
+    $password = $_POST['password'];
     
-    $req = $bdd->prepare('SELECT * FROM creds WHERE login=:login AND pwd=:pwd;');
+    $req = $bdd->prepare('SELECT * FROM users WHERE login=:login AND pwd=:pwd;');
     $req->bindValue(':login', $login);
-    $req->bindValue(':pwd', $pwd);
+    $req->bindValue(':pwd', $password);
     
     $req->execute() or die(print_r($bdd->errorInfo()));
     
     if ($req->rowCount() > 0) {
         $_SESSION['login']=$login;
-        $_SESSION['pwd']=$pwd;
+        $_SESSION['pwd']=$password;
         header('Location: ../index.php');
     }
     else {
-        $_SESSION['error']=true;
-        header('Location: ./loginwrong.php');
+        $_SESSION['error']='wronglogin';
+        header('Location: ../index.php');
     }
 ?>
