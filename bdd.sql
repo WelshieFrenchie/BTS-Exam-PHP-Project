@@ -27,9 +27,12 @@ CREATE TABLE IF NOT EXISTS `abonnement` (
   `dureeSub` int DEFAULT NULL,
   `descSub` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`idSub`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table projetsite.abonnement : ~0 rows (environ)
+DELETE FROM `abonnement`;
+INSERT INTO `abonnement` (`idSub`, `nomSub`, `prixSub`, `dureeSub`, `descSub`) VALUES
+	(1, 'Abonnement Salle mensuel', 15, 31, 'Accés à la salle de sport et aux équipements sportifs');
 
 -- Listage de la structure de table projetsite. cour
 CREATE TABLE IF NOT EXISTS `cour` (
@@ -43,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `cour` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table projetsite.cour : ~0 rows (environ)
+DELETE FROM `cour`;
 
 -- Listage de la structure de table projetsite. estinscrit
 CREATE TABLE IF NOT EXISTS `estinscrit` (
@@ -56,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `estinscrit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table projetsite.estinscrit : ~0 rows (environ)
+DELETE FROM `estinscrit`;
 
 -- Listage de la structure de table projetsite. planning
 CREATE TABLE IF NOT EXISTS `planning` (
@@ -68,6 +73,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table projetsite.planning : ~0 rows (environ)
+DELETE FROM `planning`;
 
 -- Listage de la structure de table projetsite. prof
 CREATE TABLE IF NOT EXISTS `prof` (
@@ -75,9 +81,12 @@ CREATE TABLE IF NOT EXISTS `prof` (
   `nomProf` varchar(80) DEFAULT NULL,
   `prenomProf` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idProf`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table projetsite.prof : ~0 rows (environ)
+DELETE FROM `prof`;
+INSERT INTO `prof` (`idProf`, `nomProf`, `prenomProf`) VALUES
+	(1, 'Smith', 'John');
 
 -- Listage de la structure de table projetsite. typoabon
 CREATE TABLE IF NOT EXISTS `typoabon` (
@@ -90,30 +99,54 @@ CREATE TABLE IF NOT EXISTS `typoabon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table projetsite.typoabon : ~0 rows (environ)
+DELETE FROM `typoabon`;
+INSERT INTO `typoabon` (`abonnement`, `typo`) VALUES
+	(1, 1);
 
 -- Listage de la structure de table projetsite. typologie
 CREATE TABLE IF NOT EXISTS `typologie` (
   `idTypo` int NOT NULL AUTO_INCREMENT,
   `nomTypo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idTypo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table projetsite.typologie : ~0 rows (environ)
+DELETE FROM `typologie`;
+INSERT INTO `typologie` (`idTypo`, `nomTypo`) VALUES
+	(1, 'AccesSalle'),
+	(2, 'AccesCoursSalle'),
+	(3, 'AccesPiscine'),
+	(4, 'AccesCoursPiscine');
 
 -- Listage de la structure de table projetsite. users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `login` varchar(20) DEFAULT NULL,
-  `mail` varchar(50) DEFAULT NULL,
-  `pwd` varchar(40) DEFAULT NULL,
+  `login` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `mail` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `pwd` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `typeAbonnement` int DEFAULT NULL,
-  `finAbonnement` timestamp NOT NULL,
+  `finAbonnement` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_users_abonnement` (`typeAbonnement`),
   CONSTRAINT `FK_users_abonnement` FOREIGN KEY (`typeAbonnement`) REFERENCES `abonnement` (`idSub`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.users : ~0 rows (environ)
+-- Listage des données de la table projetsite.users : ~1 rows (environ)
+DELETE FROM `users`;
+INSERT INTO `users` (`id`, `login`, `mail`, `pwd`, `typeAbonnement`, `finAbonnement`) VALUES
+	(5, 'admin', 'admin@fake.fr', 'admin', NULL, NULL);
+
+-- Listage de la structure de déclencheur projetsite. UpdateFinAbonnement
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `UpdateFinAbonnement` BEFORE UPDATE ON `users` FOR EACH ROW BEGIN
+    IF NEW.typeAbonnement IS NOT NULL THEN
+        SET @duration = (SELECT dureeSub FROM ABONNEMENT WHERE IdSub = NEW.typeAbonnement);
+        SET NEW.finAbonnement = CURRENT_DATE() + INTERVAL @duration DAY;
+    END IF;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
