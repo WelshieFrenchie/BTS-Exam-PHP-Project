@@ -11,6 +11,7 @@
   
   <?php
     require("./accountNavbar.php");
+    require("../php/abontest.php");
   ?>
   <div class="page-padding">
     <div class="row">
@@ -18,17 +19,24 @@
       <img src="..." class="card-img-top" alt="abonnement">
         <div class="card-body">
           <h5 class="card-title">Abonnement</h5>
-          <p class="card-text">Vous êtes abonné au forfait xxxx jusqu'au xx/xx/xxxx</p>
+          <?php
+           if ($_SESSION["typoAbo"] !== null) {
+              echo "<p class='card-text'>Vous êtes abonné au forfait: ", $_SESSION["typoAbo"], " jusqu'au ", $_SESSION["finAbo"], "</p>";
+           }
+           else {
+              echo "<p class='card-text'>Vous n'avez pas d'abonnement</p>";
+           }
+          ?>
           <a href="./abonnement.php" class="btn btn-primary">Gérer mon abonnement</a>
         </div>
       </div>
 
+      <div style="width: 2em;"></div>
       <div class="card" style="width: 36rem;">
-      <img src="..." class="card-img-top" alt="abonnement">
+      <img src="..." class="card-img-top" alt="Cours">
         <div class="card-body">
-          <h5 class="card-title">Abonnement</h5>
-          <p class="card-text">Vous êtes abonné au forfait xxxx jusqu'au xx/xx/xxxx</p>
-          <a href="./abonnement.php" class="btn btn-primary">Gérer mon abonnement</a>
+          <h5 class="card-title">Cours</h5>
+          <a href="./cours.php" class="btn btn-primary">Consulter les prochains cours</a>
         </div>
       </div>
     </div>
