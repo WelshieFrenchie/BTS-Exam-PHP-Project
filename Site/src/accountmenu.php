@@ -13,21 +13,23 @@
     require("./accountNavbar.php");
   ?>
   <div class="page-padding">
-    <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="abonnement">
-      <div class="card-body">
-        <h5 class="card-title">Abonnement</h5>
-        <p class="card-text">Vous êtes abonné au forfait xxxx jusqu'au xx/xx/xxxx</p>
-        <a href="./abonnement.php" class="btn btn-primary">Gérer mon abonnement</a>
+    <div class="row">
+      <div class="card" style="width: 18rem;">
+      <img src="..." class="card-img-top" alt="abonnement">
+        <div class="card-body">
+          <h5 class="card-title">Abonnement</h5>
+          <p class="card-text">Vous êtes abonné au forfait xxxx jusqu'au xx/xx/xxxx</p>
+          <a href="./abonnement.php" class="btn btn-primary">Gérer mon abonnement</a>
+        </div>
       </div>
-    </div>
 
-    <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="abonnement">
-      <div class="card-body">
-        <h5 class="card-title">Abonnement</h5>
-        <p class="card-text">Vous êtes abonné au forfait xxxx jusqu'au xx/xx/xxxx</p>
-        <a href="./abonnement.php" class="btn btn-primary">Gérer mon abonnement</a>
+      <div class="card" style="width: 36rem;">
+      <img src="..." class="card-img-top" alt="abonnement">
+        <div class="card-body">
+          <h5 class="card-title">Abonnement</h5>
+          <p class="card-text">Vous êtes abonné au forfait xxxx jusqu'au xx/xx/xxxx</p>
+          <a href="./abonnement.php" class="btn btn-primary">Gérer mon abonnement</a>
+        </div>
       </div>
     </div>
   </div>
