@@ -24,15 +24,19 @@ CREATE TABLE IF NOT EXISTS `abonnement` (
   `idSub` int NOT NULL AUTO_INCREMENT,
   `nomSub` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'Abonnement non-defini',
   `prixSub` float DEFAULT '999.99',
-  `dureeSub` int DEFAULT NULL,
+  `dureeSub` int DEFAULT '31',
   `descSub` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`idSub`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.abonnement : ~0 rows (environ)
+-- Listage des données de la table projetsite.abonnement : ~5 rows (environ)
 DELETE FROM `abonnement`;
 INSERT INTO `abonnement` (`idSub`, `nomSub`, `prixSub`, `dureeSub`, `descSub`) VALUES
-	(1, 'Abonnement Salle mensuel', 15, 31, 'Accés à la salle de sport et aux équipements sportifs');
+	(1, 'Abonnement Acces Salle', 15, 31, 'Accés à la salle de sport et aux équipements sportifs'),
+	(2, 'Abonnement Salle + Cours', 35, 31, 'Accés à la salle de sport, aux équipements sportifs et au cours de sport'),
+	(3, 'Abonnement Acces Piscine', 12, 31, 'Accès libre à la piscine sauf pendant les cours de sports aquatiques'),
+	(4, 'Abonnement Pisicne + Cours', 28, 31, 'Accès libre à la piscineet aux cours de sports aquatiques'),
+	(5, 'Abonnement Tout Compris', 45, 31, 'Accès libre a tout les services de la salle de sport');
 
 -- Listage de la structure de table projetsite. cour
 CREATE TABLE IF NOT EXISTS `cour` (
@@ -43,10 +47,12 @@ CREATE TABLE IF NOT EXISTS `cour` (
   PRIMARY KEY (`idCour`),
   KEY `FK__prof` (`profCour`),
   CONSTRAINT `FK__prof` FOREIGN KEY (`profCour`) REFERENCES `prof` (`idProf`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.cour : ~0 rows (environ)
+-- Listage des données de la table projetsite.cour : ~1 rows (environ)
 DELETE FROM `cour`;
+INSERT INTO `cour` (`idCour`, `nomCour`, `dureeCour`, `profCour`) VALUES
+	(1, 'Pilates', '00:30:00', 1);
 
 -- Listage de la structure de table projetsite. estinscrit
 CREATE TABLE IF NOT EXISTS `estinscrit` (
@@ -72,8 +78,11 @@ CREATE TABLE IF NOT EXISTS `planning` (
   CONSTRAINT `FK_planning_cour` FOREIGN KEY (`Cour`) REFERENCES `cour` (`idCour`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.planning : ~0 rows (environ)
+-- Listage des données de la table projetsite.planning : ~2 rows (environ)
 DELETE FROM `planning`;
+INSERT INTO `planning` (`Cour`, `DateHeure`, `nbPlaces`, `nbPlacesLibre`) VALUES
+	(1, '2024-02-12 11:00:00', 30, 30),
+	(1, '2024-02-19 11:00:00', 30, 30);
 
 -- Listage de la structure de table projetsite. prof
 CREATE TABLE IF NOT EXISTS `prof` (
@@ -83,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `prof` (
   PRIMARY KEY (`idProf`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.prof : ~0 rows (environ)
+-- Listage des données de la table projetsite.prof : ~1 rows (environ)
 DELETE FROM `prof`;
 INSERT INTO `prof` (`idProf`, `nomProf`, `prenomProf`) VALUES
 	(1, 'Smith', 'John');
@@ -98,10 +107,19 @@ CREATE TABLE IF NOT EXISTS `typoabon` (
   CONSTRAINT `FK_typoabon_typologie` FOREIGN KEY (`typo`) REFERENCES `typologie` (`idTypo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.typoabon : ~0 rows (environ)
+-- Listage des données de la table projetsite.typoabon : ~10 rows (environ)
 DELETE FROM `typoabon`;
 INSERT INTO `typoabon` (`abonnement`, `typo`) VALUES
-	(1, 1);
+	(1, 1),
+	(2, 1),
+	(5, 1),
+	(2, 2),
+	(5, 2),
+	(3, 3),
+	(4, 3),
+	(5, 3),
+	(4, 4),
+	(5, 4);
 
 -- Listage de la structure de table projetsite. typologie
 CREATE TABLE IF NOT EXISTS `typologie` (
@@ -110,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `typologie` (
   PRIMARY KEY (`idTypo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.typologie : ~0 rows (environ)
+-- Listage des données de la table projetsite.typologie : ~4 rows (environ)
 DELETE FROM `typologie`;
 INSERT INTO `typologie` (`idTypo`, `nomTypo`) VALUES
 	(1, 'AccesSalle'),
@@ -134,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Listage des données de la table projetsite.users : ~1 rows (environ)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `mail`, `pwd`, `typeAbonnement`, `finAbonnement`) VALUES
-	(5, 'admin', 'admin@fake.fr', 'admin', NULL, NULL);
+	(1, 'admin', 'admin@fake.fr', 'admin', 1, '2024-03-06 23:00:00');
 
 -- Listage de la structure de déclencheur projetsite. UpdateFinAbonnement
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -143,7 +161,10 @@ CREATE TRIGGER `UpdateFinAbonnement` BEFORE UPDATE ON `users` FOR EACH ROW BEGIN
     IF NEW.typeAbonnement IS NOT NULL THEN
         SET @duration = (SELECT dureeSub FROM ABONNEMENT WHERE IdSub = NEW.typeAbonnement);
         SET NEW.finAbonnement = CURRENT_DATE() + INTERVAL @duration DAY;
-    END IF;
+   ELSE
+   	SET NEW.finAbonnement = NULL;
+   END IF;
+    
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;

@@ -13,9 +13,10 @@
     require("./accountNavbar.php");
   ?>
   <div class="page-padding">
-    <div class="row">
-      
-    </div>
+      <p class="h3">Prochains cours:</p>
+      <?php
+        require("./courslist.php");
+      ?>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

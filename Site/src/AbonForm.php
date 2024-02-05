@@ -12,7 +12,7 @@ $count = 0;
 
 foreach ($req as $row) {
     $count += 1;
-    echo '<option value="', $row["idSub"], '">', $row["NomSub"], '</option>';
+    echo '<option value=', $row["idSub"], '>', $row["NomSub"], '</option>';
 }
 
 echo '</select>
