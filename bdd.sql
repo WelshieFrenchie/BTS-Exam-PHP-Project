@@ -68,6 +68,13 @@ CREATE TABLE IF NOT EXISTS `estinscrit` (
 -- Listage des données de la table projetsite.estinscrit : ~0 rows (environ)
 DELETE FROM `estinscrit`;
 
+-- Listage de la structure de l'évènement projetsite. expireAbo
+DELIMITER //
+CREATE EVENT `expireAbo` ON SCHEDULE EVERY 1 DAY STARTS '2024-02-08 00:00:01' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+	UPDATE users SET typeAbonnement = NULL WHERE finAbonnement < CURRENT_DATE();
+END//
+DELIMITER ;
+
 -- Listage de la structure de table projetsite. planning
 CREATE TABLE IF NOT EXISTS `planning` (
   `Cour` int NOT NULL,
@@ -78,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   CONSTRAINT `FK_planning_cour` FOREIGN KEY (`Cour`) REFERENCES `cour` (`idCour`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.planning : ~2 rows (environ)
+-- Listage des données de la table projetsite.planning : ~1 rows (environ)
 DELETE FROM `planning`;
 INSERT INTO `planning` (`Cour`, `DateHeure`, `nbPlaces`, `nbPlacesLibre`) VALUES
 	(1, '2024-02-12 11:00:00', 30, 30),
@@ -92,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `prof` (
   PRIMARY KEY (`idProf`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.prof : ~1 rows (environ)
+-- Listage des données de la table projetsite.prof : ~0 rows (environ)
 DELETE FROM `prof`;
 INSERT INTO `prof` (`idProf`, `nomProf`, `prenomProf`) VALUES
 	(1, 'Smith', 'John');
@@ -107,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `typoabon` (
   CONSTRAINT `FK_typoabon_typologie` FOREIGN KEY (`typo`) REFERENCES `typologie` (`idTypo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.typoabon : ~10 rows (environ)
+-- Listage des données de la table projetsite.typoabon : ~9 rows (environ)
 DELETE FROM `typoabon`;
 INSERT INTO `typoabon` (`abonnement`, `typo`) VALUES
 	(1, 1),
@@ -152,15 +159,15 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Listage des données de la table projetsite.users : ~1 rows (environ)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `mail`, `pwd`, `typeAbonnement`, `finAbonnement`) VALUES
-	(1, 'admin', 'admin@fake.fr', 'admin', 1, '2024-03-06 23:00:00');
+	(1, 'admin', 'admin@fake.fr', 'admin', NULL, '2024-02-07 23:00:00');
 
--- Listage de la structure de déclencheur projetsite. UpdateFinAbonnement
+-- Listage de la structure de déclencheur projetsite. updateaboUser
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
-CREATE TRIGGER `UpdateFinAbonnement` BEFORE UPDATE ON `users` FOR EACH ROW BEGIN
+CREATE TRIGGER `updateaboUser` BEFORE UPDATE ON `users` FOR EACH ROW BEGIN
     IF NEW.typeAbonnement IS NOT NULL THEN
-        SET @duration = (SELECT dureeSub FROM ABONNEMENT WHERE IdSub = NEW.typeAbonnement);
-        SET NEW.finAbonnement = CURRENT_DATE() + INTERVAL @duration DAY;
+        SET @delai = (SELECT dureeSub FROM ABONNEMENT WHERE IdSub = NEW.typeAbonnement);
+        SET NEW.finAbonnement = CURRENT_DATE() + INTERVAL @delai DAY;
    ELSE
    	SET NEW.finAbonnement = NULL;
    END IF;
