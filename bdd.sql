@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `abonnement` (
   `idSub` int NOT NULL AUTO_INCREMENT,
   `nomSub` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'Abonnement non-defini',
   `prixSub` float DEFAULT '999.99',
-  `dureeSub` int DEFAULT '31',
+  `dureeSub` int DEFAULT NULL,
   `descSub` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`idSub`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `cour` (
   CONSTRAINT `FK__prof` FOREIGN KEY (`profCour`) REFERENCES `prof` (`idProf`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.cour : ~1 rows (environ)
+-- Listage des données de la table projetsite.cour : ~0 rows (environ)
 DELETE FROM `cour`;
 INSERT INTO `cour` (`idCour`, `nomCour`, `dureeCour`, `profCour`) VALUES
 	(1, 'Pilates', '00:30:00', 1);
@@ -72,6 +72,7 @@ DELETE FROM `estinscrit`;
 DELIMITER //
 CREATE EVENT `expireAbo` ON SCHEDULE EVERY 1 DAY STARTS '2024-02-08 00:00:01' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
 	UPDATE users SET typeAbonnement = NULL WHERE finAbonnement < CURRENT_DATE();
+	UPDATE users SET finAbonnement = NULL WHERE finAbonnement < CURRENT_DATE();
 END//
 DELIMITER ;
 
@@ -85,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   CONSTRAINT `FK_planning_cour` FOREIGN KEY (`Cour`) REFERENCES `cour` (`idCour`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.planning : ~1 rows (environ)
+-- Listage des données de la table projetsite.planning : ~2 rows (environ)
 DELETE FROM `planning`;
 INSERT INTO `planning` (`Cour`, `DateHeure`, `nbPlaces`, `nbPlacesLibre`) VALUES
 	(1, '2024-02-12 11:00:00', 30, 30),
@@ -94,15 +95,18 @@ INSERT INTO `planning` (`Cour`, `DateHeure`, `nbPlaces`, `nbPlacesLibre`) VALUES
 -- Listage de la structure de table projetsite. prof
 CREATE TABLE IF NOT EXISTS `prof` (
   `idProf` int NOT NULL AUTO_INCREMENT,
-  `nomProf` varchar(80) DEFAULT NULL,
-  `prenomProf` varchar(50) DEFAULT NULL,
+  `login` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `mail` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `pwd` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `nomProf` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `prenomProf` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`idProf`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.prof : ~0 rows (environ)
+-- Listage des données de la table projetsite.prof : ~1 rows (environ)
 DELETE FROM `prof`;
-INSERT INTO `prof` (`idProf`, `nomProf`, `prenomProf`) VALUES
-	(1, 'Smith', 'John');
+INSERT INTO `prof` (`idProf`, `login`, `mail`, `pwd`, `nomProf`, `prenomProf`) VALUES
+	(1, 'jsmith', 'johnsmith@fakemail.fr', 'jsmith', 'Smith', 'John');
 
 -- Listage de la structure de table projetsite. typoabon
 CREATE TABLE IF NOT EXISTS `typoabon` (
@@ -114,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `typoabon` (
   CONSTRAINT `FK_typoabon_typologie` FOREIGN KEY (`typo`) REFERENCES `typologie` (`idTypo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table projetsite.typoabon : ~9 rows (environ)
+-- Listage des données de la table projetsite.typoabon : ~10 rows (environ)
 DELETE FROM `typoabon`;
 INSERT INTO `typoabon` (`abonnement`, `typo`) VALUES
 	(1, 1),
@@ -146,20 +150,20 @@ INSERT INTO `typologie` (`idTypo`, `nomTypo`) VALUES
 -- Listage de la structure de table projetsite. users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `login` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `mail` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `pwd` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `login` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `mail` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `pwd` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `typeAbonnement` int DEFAULT NULL,
   `finAbonnement` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_users_abonnement` (`typeAbonnement`),
   CONSTRAINT `FK_users_abonnement` FOREIGN KEY (`typeAbonnement`) REFERENCES `abonnement` (`idSub`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table projetsite.users : ~1 rows (environ)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `mail`, `pwd`, `typeAbonnement`, `finAbonnement`) VALUES
-	(1, 'admin', 'admin@fake.fr', 'admin', NULL, '2024-02-07 23:00:00');
+	(1, 'admin', 'admin@fake.fr', 'admin', NULL, NULL);
 
 -- Listage de la structure de déclencheur projetsite. updateaboUser
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';

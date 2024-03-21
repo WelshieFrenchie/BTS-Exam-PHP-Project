@@ -1,7 +1,12 @@
 <?php
-session_start();
+    session_start();
     if (!isset($_SESSION['login'])) {
-        header('Location: ./src/menu.php');
+        if(!isset($_SESSION['isprof'])) {
+            header('Location: ./src/menuprof.php');
+        }
+        else {
+            header('Location: ./src/menu.php');
+        }
     }
     else {
         header('Location: ./src/accountmenu.php');

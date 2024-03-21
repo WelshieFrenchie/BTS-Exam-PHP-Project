@@ -19,13 +19,13 @@ echo '</select>
     <br><br>
     <div id="abonOutput"></div>
     <script type="text/javascript">
-
+    
         var selectElement = document.getElementById("abonForm");
         var divElement = document.getElementById("abonOutput");
-
+    
         selectElement.onchange = function () {
-            var selectedValue = selectElement.options[selectElement.selectedIndex].value;
-            ';
+        var selectedValue = selectElement.options[selectElement.selectedIndex].value;
+    ';
     
     $req = $bdd->prepare('SELECT * FROM abonnement');
     $req->execute();
