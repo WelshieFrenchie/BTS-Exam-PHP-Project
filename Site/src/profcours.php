@@ -15,7 +15,7 @@
   <div class="page-padding">
       <p class="h3">Prochains cours:</p>
       <?php
-        require("../php/courslist.php");
+        require("../php/ProfCourslist.php");
       ?>
   </div>
 
