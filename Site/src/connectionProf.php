@@ -52,15 +52,20 @@
                 </div>
                 <div class="col-6 row-6">
         	        <form id="profform" action="../php/profSignin.php" method="post">
-                        <div class="mb-3">
-                            <label for="proflogin">Login</label>
-                            <input type="text" class="form-control" id='proflogin' name='proflogin' placeholder="Entrez votre nom d'utilisateur">
-                        </div>
-                        <div class="mb-3">
-                            <label for="profpwd">Mot de passe</label>
-                            <input type="password" class="form-control" id='profpwd' name='profpwd' placeholder="Mot de Passe">
-                        </div>
-                    	<button type="submit" class="btn btn-primary">Submit</button>
+                        <fieldset>
+                            <legend>Connection Espace Prof</legend>
+                            </br>
+                            </br>
+                            <div class="mb-3">
+                                <label for="proflogin">Login</label>
+                                <input type="text" class="form-control" id='proflogin' name='proflogin' placeholder="Entrez votre nom d'utilisateur">
+                            </div>
+                            <div class="mb-3">
+                                <label for="profpwd">Mot de passe</label>
+                                <input type="password" class="form-control" id='profpwd' name='profpwd' placeholder="Mot de Passe">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </fieldset>
                		</form>
                 </div>
                 <div class="col">

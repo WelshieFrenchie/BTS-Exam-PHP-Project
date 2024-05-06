@@ -16,18 +16,11 @@
   <div class="page-padding">
     <div class="row">
       <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="abonnement">
+      <img src="..." class="card-img-top" alt="ajoutCour">
         <div class="card-body">
-          <h5 class="card-title">Abonnement</h5>
-          <?php
-           if ($_SESSION["typoAbo"] !== null) {
-              echo "<p class='card-text'>Vous êtes abonné au forfait: ", $_SESSION["typoAbo"], " jusqu'au ", $_SESSION["finAbo"], "</p>";
-           }
-           else {
-              echo "<p class='card-text'>Vous n'avez pas d'abonnement</p>";
-           }
-          ?>
-          <a href="./abonnement.php" class="btn btn-primary">Gérer mon abonnement</a>
+          <h5 class="card-title">Vous voulez faire une séance?</h5>
+          <p class='card-text'>C'est ici que sa se passe!</p>
+          <a href="./ajoutCour.php" class="btn btn-primary">Ajouter un cour de sport</a>
         </div>
       </div>
 
@@ -35,8 +28,8 @@
       <div class="card" style="width: 36rem;">
       <img src="..." class="card-img-top" alt="Cours">
         <div class="card-body">
-          <h5 class="card-title">Cours</h5>
-          <a href="./cours.php" class="btn btn-primary">Consulter les prochains cours</a>
+          <h5 class="card-title">Vos Cours</h5>
+          <a href="./profcours.php" class="btn btn-primary">Consulter les prochains cours</a>
         </div>
       </div>
     </div>
