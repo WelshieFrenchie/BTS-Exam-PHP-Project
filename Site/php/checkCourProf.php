@@ -17,24 +17,5 @@ foreach ($req as $row) {
 }
 
 echo '</select>
-    <br><br>
-    <div id="abonOutput"></div>
-    <script type="text/javascript">
-    
-        var selectElement = document.getElementById("abonForm");
-        var divElement = document.getElementById("abonOutput");
-    
-        selectElement.onchange = function () {
-        var selectedValue = selectElement.options[selectElement.selectedIndex].value;
-    ';
-    
-    $req = $bdd->prepare('SELECT * FROM Cour');
-    $req->execute();
-    foreach ($req as $row) {
-        echo 'if (selectedValue == "', $row['idCour'],'") {',
-            '"<p class=\'h6\'>Durée: ', $row['dureeCour'], ' jours</p>" +',
-        '}';
-    }
-    echo '};
-    </script>';
+    <br><br>'
 ?>

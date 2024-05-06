@@ -16,17 +16,17 @@
   <div class="page-padding">
     <div class="row">
       <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="ajoutCour">
+      <img src="...." class="card-img-top" alt="ajoutCour">
         <div class="card-body">
           <h5 class="card-title">Vous voulez faire une séance?</h5>
           <p class='card-text'>C'est ici que sa se passe!</p>
-          <a href="./ajoutCour.php" class="btn btn-primary">Ajouter un cour de sport</a>
+          <a href="./ajoutCour.php" class="btn btn-primary">Ajouter une séance</a>
         </div>
       </div>
 
       <div style="width: 2em;"></div>
       <div class="card" style="width: 36rem;">
-      <img src="..." class="card-img-top" alt="Cours">
+      <img src="...." class="card-img-top" alt="Cours">
         <div class="card-body">
           <h5 class="card-title">Vos Cours</h5>
           <a href="./profcours.php" class="btn btn-primary">Consulter les prochains cours</a>
