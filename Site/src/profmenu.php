@@ -29,7 +29,7 @@
       <img src="...." class="card-img-top" alt="Cours">
         <div class="card-body">
           <h5 class="card-title">Vos Cours</h5>
-          <a href="./profcours.php" class="btn btn-primary">Consulter les prochains cours</a>
+          <a href="./profcours.php" class="btn btn-primary">Consulter vos prochains cours</a>
         </div>
       </div>
     </div>

@@ -11,7 +11,10 @@ $req->execute();
 
 require('../php/datereformat.php');
 
+$count = 0;
 foreach ($req as $row) {
+    $count += 1;
+    $time = $row['dateHeure'];
     $date = date_create($row['dateHeure']);
     $semaine = getJourSemaine($date);
     $jour = date_format($date, 'd');
@@ -23,10 +26,32 @@ foreach ($req as $row) {
             <h5 class='card-title'>".$row['nomCour']."</h5>
             <p class='card-text'>".$semaine." ".$jour." ".$mois." - ".$heure."</p>
             <p class='card-text'>Places de libre: ".$row['nbPlacesLibre']."</p>
-            <a href='' class='btn btn-primary'>Voir la liste de participants</a>
-            <a href='' class='btn btn-danger'>Supprimer séance</a>
+            <a class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#participantModal".$count."'>
+                Voir la liste de participants
+            </a>
         </div>
     </div>
-    <br>";
+    <br>
+    <div class='modal fade' id='participantModal".$count."' tabindex='-1' aria-labelledby='participantModalLabel".$count."' aria-hidden='true'>
+    <div class='modal-dialog' role='document'>
+    <div class='modal-content'>
+        <div class='modal-header'>
+        <h5 class='modal-title' id='participantModalLabel".$count."'>Liste de participants</h5>
+        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+        </div>
+        <div class='modal-body'>
+    ";
+
+    $req = $bdd->prepare('SELECT login FROM users u JOIN estinscrit e ON e.User = u.id JOIN planning p ON p.DateHeure = e.DateHeure WHERE e.DateHeure = :date');
+    $req->bindValue(':date',$time);
+    $req->execute();
+
+    foreach ($req as $row) {
+        echo "<h6>".$row['login']."</h6>";
+    }
+    echo '</div>
+    </div>
+    </div>
+    </div>';
 }
 ?>
