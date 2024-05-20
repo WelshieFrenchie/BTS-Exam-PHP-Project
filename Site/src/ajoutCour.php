@@ -36,15 +36,19 @@
     <form id="abonFormAdd" action="../php/addCour.php" method="post">
       <div class="form-row align-items-center">
         <div class="col-auto my-1">
-          <label class="mr-sm-2" for="abonform">Cours:</label>
-          <select name="formOption" class="custom-select mr-sm-2" id="abonForm" required>
+          <label class="mr-sm-2" for="seance">Cours:</label>
+          <select class="mr-sm-2" id="seance" name="seance" required>
             <option value="0" selected disabled>Choisissez une option:</option>
             <?php
               require("../php/checkCourProf.php");
             ?>
         </div>
         <label for="courtime">Horaire:</label>  
-        <input type="datetime-local" id="courtime" name="courtime">
+        <input type="datetime-local" id="courtime" name="courtime" required>
+        </br>
+        </br>
+        <label for="nbplaces">Nombre de places:</label>
+        <input type="number" id="nbplaces" min="1" name="nbplaces" style="width: 50px;" required>
         </br>
         </br>
         <div class="col-auto my-1">

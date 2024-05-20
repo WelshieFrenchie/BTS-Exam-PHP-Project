@@ -7,9 +7,12 @@ try {
     die('Erreur : ' . $e->getMessage());
 }
 
-$req = $bdd->prepare('UPDATE users SET typeAbonnement = null WHERE login = :login');
-$req->bindValue(':login', $_SESSION['login']);
+$seance = $_POST['seance'];
+$horaire = $_POST['courtime'];
+
+$req = $bdd->prepare('DELETE FROM planning WHERE Cour = :seance AND DateHeure = :horaire');
+$req->bindValue(':seance', $seance);
+$req->bindValue(':horaire', $horaire);
 $req->execute();
-$res = $req->fetch(PDO::FETCH_ASSOC);
 
 header('Location: ../index.php');
