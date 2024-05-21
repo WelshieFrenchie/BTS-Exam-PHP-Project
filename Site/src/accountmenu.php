@@ -32,6 +32,13 @@
           Vous êtes desinscrit au cour
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>';
+      }
+      if ($_SESSION['info'] == 'inscriptionEchec') {
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <svg class="bi bi-info-circle-fill me-2" width="1em" height="1em" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+          Vous avez pas le bon abonnement! Veuillez prendre un abonnement valable
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>';
     }
       unset($_SESSION['info']);
     }

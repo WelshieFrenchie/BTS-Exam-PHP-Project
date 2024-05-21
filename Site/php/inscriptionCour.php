@@ -11,13 +11,24 @@
     $pwd = $_SESSION['pwd'];
     $cour = $_POST['cour'];
     $dateHeure = $_POST['dateHeure'];
+    $abonnement = false;
 
-    $req = $bdd->prepare('SELECT typeAbonnement FROM users WHERE login = :login AND pwd = :pwd');
+    $req = $bdd->prepare('SELECT typo FROM typoabon WHERE abonnement = (SELECT typeAbonnement FROM users WHERE login = :login AND pwd = :pwd)');
     $req->bindValue(':login', $login, PDO::PARAM_STR);
     $req->bindValue(':pwd', $pwd, PDO::PARAM_STR);
     $req->execute();
+    $abonuser = $req->fetch(PDO::FETCH_ASSOC);
 
-    if ($req->fetch(PDO::FETCH_ASSOC) == 2 || $req->fetch(PDO::FETCH_ASSOC) == 5) {
+    foreach ($req as $row)  {
+        $req = $bdd->prepare('SELECT aboncour FROM cour WHERE idCour = :cour');
+        $req->bindValue(':cour', $cour, PDO::PARAM_STR);
+        $req->execute();
+        if ($row['aboncour'] = $abonuser) {
+            $abonnement = true;
+        }
+    }
+
+    if ($abonnement) {
 
         $req = $bdd->prepare('SELECT id FROM users WHERE login = :login AND pwd = :pwd');
         $req->bindValue(':login', $login, PDO::PARAM_STR);
