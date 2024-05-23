@@ -58,7 +58,7 @@
                     <div class="container">
                         <div class="carousel-caption text-start">
                         <h1>Cours sportives pour tout les niveaux</h1>
-                        <p>Consultez notre liste de cours disponibles dans nos salles de sports</p>
+                        <p>Découvrez ce qu'une séance de sport pourrait faire pour votre bien-être</p>
                         <p><a class="btn btn-lg btn-primary" href="./fitness.php">Savoir plus</a></p>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         <div class="carousel-caption">
                             <h1>Materiel sportif a libre service</h1>
                             <p>Salles et materiel pour débutants et professionels</p>
-                            <p><a class="btn btn-lg btn-primary" href="./muscu.php">Voir les photos</a></p>
+                            <p><a class="btn btn-lg btn-primary" href="./photos.php">Voir les photos</a></p>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         <div class="carousel-caption text-end">
                             <h1>Piscine pour cours et loisirs</h1>
                             <p>Piscine chauffé pour profiter des cours aquatiques en tout tranquilité</p>
-                            <p><a class="btn btn-lg btn-primary" href="./aqua.php">Consulter</a></p>
+                            <p><a class="btn btn-lg btn-secondary disabled" aria-disabled="true">Consulter</a></p>
                         </div>
                     </div>
                 </div>
@@ -97,26 +97,24 @@
         <div class="container marketing">
             <div class="row">
                 <div class="col-lg-4">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                    
-                    <h2>Heading</h2>
-                    <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-                    <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+                <h2>Equipement haut de gamme</h2>
+                </br>
+                <p>De la tête au pieds, vous trouverez tout ce que vous aurez besoin avec notre matériel de qualité</p>
                 </div>
                 <div class="col-lg-4">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                    
-                    <h2>Heading</h2>
-                    <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-                    <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+                <h2>Séances sportives</h2>
+                </br>
+                <p>Suivez des cours avec nos instucteurs qualifités pour tout niveau, du débutant jusqu'au professionel</p>
                 </div>
-                    <div class="col-lg-4">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                    
-                    <h2>Heading</h2>
-                    <p>And lastly this, the third column of representative placeholder content.</p>
-                    <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+                <div class="col-lg-4">
+                <h2>Equipe de forme</h2>
+                </br>
+                <p>Notre équipe serait toujours à votre disposition pour vous aidez à former votre corps de rêve</p>
                 </div>
             </div>
         </div>
+    </body>
+    <?php
+        require('./footer.php');
+    ?>
 </html>

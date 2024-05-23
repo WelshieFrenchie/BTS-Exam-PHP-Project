@@ -44,16 +44,19 @@ CREATE TABLE IF NOT EXISTS `cour` (
   `nomCour` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'Cour non-defini',
   `dureeCour` time DEFAULT NULL,
   `profCour` int DEFAULT NULL,
+  `abonCour` int DEFAULT NULL,
   PRIMARY KEY (`idCour`),
   KEY `FK__prof` (`profCour`),
-  CONSTRAINT `FK__prof` FOREIGN KEY (`profCour`) REFERENCES `prof` (`idProf`)
+  KEY `FK_cour_typologie` (`abonCour`),
+  CONSTRAINT `FK__prof` FOREIGN KEY (`profCour`) REFERENCES `prof` (`idProf`),
+  CONSTRAINT `FK_cour_typologie` FOREIGN KEY (`abonCour`) REFERENCES `typologie` (`idTypo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table projetsite.cour: ~2 rows (approximately)
 DELETE FROM `cour`;
-INSERT INTO `cour` (`idCour`, `nomCour`, `dureeCour`, `profCour`) VALUES
-	(1, 'Pilates', '00:30:00', 1),
-	(2, 'Aerobics', '01:00:00', 2);
+INSERT INTO `cour` (`idCour`, `nomCour`, `dureeCour`, `profCour`, `abonCour`) VALUES
+	(1, 'Pilates', '00:30:00', 1, 2),
+	(2, 'Aerobics', '01:00:00', 2, 2);
 
 -- Dumping structure for table projetsite.estinscrit
 CREATE TABLE IF NOT EXISTS `estinscrit` (
@@ -69,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `estinscrit` (
 -- Dumping data for table projetsite.estinscrit: ~0 rows (approximately)
 DELETE FROM `estinscrit`;
 INSERT INTO `estinscrit` (`User`, `Cour`, `DateHeure`) VALUES
-	(1, 1, '2024-05-21 10:00:00');
+	(1, 2, '2024-05-22 17:00:00');
 
 -- Dumping structure for event projetsite.expireAbo
 DELIMITER //
@@ -96,13 +99,9 @@ CREATE TABLE IF NOT EXISTS `planning` (
   CONSTRAINT `FK_planning_cour` FOREIGN KEY (`Cour`) REFERENCES `cour` (`idCour`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table projetsite.planning: ~3 rows (approximately)
+-- Dumping data for table projetsite.planning: ~1 rows (approximately)
 DELETE FROM `planning`;
 INSERT INTO `planning` (`Cour`, `DateHeure`, `nbPlaces`, `nbPlacesLibre`) VALUES
-	(1, '2024-02-12 11:00:00', 30, 30),
-	(1, '2024-02-19 11:00:00', 30, 30),
-	(1, '2024-04-27 18:30:00', 30, 30),
-	(1, '2024-05-21 10:00:00', 20, 7),
 	(2, '2024-05-22 17:00:00', 30, 30);
 
 -- Dumping structure for table projetsite.prof
@@ -116,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `prof` (
   PRIMARY KEY (`idProf`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table projetsite.prof: ~0 rows (approximately)
+-- Dumping data for table projetsite.prof: ~1 rows (approximately)
 DELETE FROM `prof`;
 INSERT INTO `prof` (`idProf`, `login`, `mail`, `pwd`, `nomProf`, `prenomProf`) VALUES
 	(1, 'jsmith', 'johnsmith@fakemail.fr', 'jsmith', 'Smith', 'John'),
@@ -175,10 +174,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   CONSTRAINT `FK_users_abonnement` FOREIGN KEY (`typeAbonnement`) REFERENCES `abonnement` (`idSub`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table projetsite.users: ~0 rows (approximately)
+-- Dumping data for table projetsite.users: ~1 rows (approximately)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `mail`, `pwd`, `typeAbonnement`, `finAbonnement`) VALUES
-	(1, 'admin', 'admin@fake.fr', 'admin', NULL, NULL);
+	(1, 'admin', 'admin@fake.fr', 'admin', 2, '2024-06-20 22:00:00');
 
 -- Dumping structure for trigger projetsite.updateaboUser
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';

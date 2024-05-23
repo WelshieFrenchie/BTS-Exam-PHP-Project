@@ -23,14 +23,14 @@
                                         <li><a class="dropdown-item" href="./fitness.php">Fitness</a></li>
                                         <li><a class="dropdown-item" href="./muscu.php">Musculation</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="./aqua.php">Aquatique</a></li>
+                                        <li><a class="dropdown-item disabled" aria-disabled="true" disabled>Aquatique</a></li>
                                     </ul>
                                 </li>
                             <li class="nav-item">
-                            	<a class="nav-link" href="#">Link</a>
+                            	<a class="nav-link" href="./photos.php">Photos</a>
                             </li>
                             <li class="nav-item">
-                            	<a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                            	<a class="nav-link" href="./contact.php">Contactez-nous</a>
                             </li>
                         </ul>
                     <button type="button" class="navbar-padding btn btn-primary" data-bs-toggle="modal" data-bs-target="#connexionModal">Connexion</button>
